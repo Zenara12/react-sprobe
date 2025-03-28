@@ -1,7 +1,7 @@
 import { createContext, useState, useContext } from 'react';
 
 const StateContext = createContext({
-	user: { name: '' },
+	user: null,
 	token: '',
 	setUser: () => {},
 	setToken: () => {},
@@ -9,7 +9,7 @@ const StateContext = createContext({
 
 export const ContextProvider = ({ children }) => {
 	const [user, setUser] = useState({ name: '' });
-	const [token, _setToken] = useState(localStorage.getItem('token') || '');
+	const [token, _setToken] = useState(localStorage.getItem('token')||'');
 
 	const setToken = (token) => {
 		_setToken(token);
