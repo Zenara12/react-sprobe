@@ -8,6 +8,7 @@ import Dashboard from '../pages/Dashboard';
 import { Navigate } from 'react-router-dom';
 import Tasks from '../pages/Tasks';
 import Products from '../pages/Products';
+import ShowTask from '../pages/ShowTask';
 
 const routes = [
 	{
@@ -29,6 +30,10 @@ const routes = [
 			{
 				path: '/tasks',
 				element: <Tasks />,
+			},
+			{
+				path: '/task/:id',
+				element: <ShowTask />,
 			},
 			{
 				path: '/products',
