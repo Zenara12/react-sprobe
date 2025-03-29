@@ -32,6 +32,7 @@ axiosClient.interceptors.response.use(
 		// Do something with response error
 		if (error.response && error.response.status === 401) {
 			localStorage.removeItem('token');
+			localStorage.removeItem('user');
 		}
 		throw error;
 	}
