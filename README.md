@@ -58,15 +58,7 @@ To deploy using GitHub Pages:
    ```sh
    npm install gh-pages --save-dev
    ```
-2. Update `package.json`:
-   ```json
-   "homepage": "http://yourusername.github.io/my-existing-react-app",
-   "scripts": {
-      "predeploy": "npm run build",
-      "deploy": "gh-pages -d build"
-   }
-   ```
-3. Deploy:
+2. Deploy:
    ```sh
    npx gh-pages -d dist `or ./dist`
    ```
