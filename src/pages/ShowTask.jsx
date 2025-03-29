@@ -89,20 +89,22 @@ function ShowTask() {
 
 			{task ? (
 				<div className='w-full md:w-3/4 p-4 bg-slate-200 items-center mx-auto'>
-					<div className='size-6 flex justify-end w-full mt-5'>
-						<PencilSquareIcon
-							className='text-orange-500 mx-5'
+					<div className='flex justify-end w-full mt-5'>
+						<button
 							onClick={() => {
 								setIsOpen(true);
 							}}
-						/>
-						<TrashIcon
-							className='text-red-700 md:mr-48 mr-10'
+						>
+							<PencilSquareIcon className='text-orange-500 mx-5 size-6' />
+						</button>
+						<button
 							onClick={() => {
 								setopenAlert(true);
 								setTaskId(task.id);
 							}}
-						/>
+						>
+							<TrashIcon className='text-red-700 md:mr-48 mr-10 size-6' />
+						</button>
 					</div>
 					<div className='p-4 w-full sm:max-w-md md:max-w-6xl mx-auto'>
 						<b className='text-black font-bold text-lg break-words'>

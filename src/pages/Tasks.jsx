@@ -101,17 +101,17 @@ const Tasks = () => {
 					? tasks.map((task) => {
 							return (
 								<Card key={task.id} item={task}>
-									<EyeIcon
-										onClick={() => navigate(`/task/${task.id}`)}
-										className='text-orange-500 mx-5'
-									/>
-									<TrashIcon
-										className='text-red-700'
+									<button onClick={() => navigate(`/task/${task.id}`)}>
+										<EyeIcon className='text-orange-500 mx-5 size-6' />
+									</button>
+									<button
 										onClick={() => {
 											setopenAlert(true);
 											setTaskId(task.id);
 										}}
-									/>
+									>
+										<TrashIcon className='text-red-700 size-6' />
+									</button>
 								</Card>
 							);
 					  })
