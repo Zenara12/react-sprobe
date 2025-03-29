@@ -20,7 +20,6 @@ export default function Signup() {
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
     }
-    console.log(payload)
     axiosClient.post('/api/signup', payload)
       .then(({data}) => {
         setUser(data.user)
@@ -41,7 +40,7 @@ export default function Signup() {
         Sign up for free
       </h2>
       {errors &&
-        <div className="alert">
+        <div className="mt-5 text-start text-sm/6 text-red-500">
           {Object.keys(errors).map(key => (
             <p key={key}>{errors[key][0]}</p>
           ))}
@@ -49,7 +48,7 @@ export default function Signup() {
       }
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={onSubmit}>
         <div>
             <label htmlFor="fullname" className="block text-sm/6 font-medium text-gray-900">
@@ -61,7 +60,6 @@ export default function Signup() {
                 id="fullname"
                 name="fullname"
                 type="text"
-                required
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
@@ -77,7 +75,6 @@ export default function Signup() {
                 id="email"
                 name="email"
                 type="email"
-                required
                 autoComplete="email"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
@@ -101,7 +98,6 @@ export default function Signup() {
                 id="password"
                 name="password"
                 type="password"
-                required
                 autoComplete="current-password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
@@ -120,7 +116,6 @@ export default function Signup() {
                 id="password_confirmation"
                 name="password_confirmation"
                 type="password"
-                required
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
