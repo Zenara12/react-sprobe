@@ -26,8 +26,6 @@ import { ArrowLeftIcon } from '@heroicons/react/16/solid';
 const navigation = [
 	{ name: 'Dashboard', href: '/dashboard' },
 	{ name: 'Tasks', href: '/tasks' },
-	{ name: 'Products', href: '/products' },
-	{ name: 'Users', href: '/users' },
 ];
 
 function classNames(...classes) {
