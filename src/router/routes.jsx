@@ -6,6 +6,8 @@ import Signup from '../pages/Signup';
 import Users from '../pages/Users';
 import Dashboard from '../pages/Dashboard';
 import { Navigate } from 'react-router-dom';
+import Tasks from '../pages/Tasks';
+import Products from '../pages/Products';
 
 const routes = [
 	{
@@ -23,6 +25,14 @@ const routes = [
 			{
 				path: '/users',
 				element: <Users />,
+			},
+			{
+				path: '/tasks',
+				element: <Tasks />,
+			},
+			{
+				path: '/products',
+				element: <Products />,
 			},
 		],
 	},
