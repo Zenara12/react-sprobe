@@ -3,9 +3,10 @@ import GuestLayout from '../layout/GuestLayout';
 import Login from '../pages/Login';
 import NotFound404 from '../pages/NotFound404';
 import Signup from '../pages/Signup';
-import Users from '../pages/Users';
 import Dashboard from '../pages/Dashboard';
 import { Navigate } from 'react-router-dom';
+import Tasks from '../pages/Tasks';
+import ShowTask from '../pages/ShowTask';
 
 const routes = [
 	{
@@ -21,8 +22,12 @@ const routes = [
 				element: <Dashboard />,
 			},
 			{
-				path: '/users',
-				element: <Users />,
+				path: '/tasks',
+				element: <Tasks />,
+			},
+			{
+				path: '/task/:id',
+				element: <ShowTask />,
 			},
 		],
 	},
