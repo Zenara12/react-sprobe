@@ -1,6 +1,12 @@
 import { useState, createRef, useEffect } from 'react';
 import Modal from '../components/Modal';
-import { PlusIcon, TrashIcon, EyeIcon } from '@heroicons/react/16/solid';
+import {
+	PlusIcon,
+	TrashIcon,
+	EyeIcon,
+	CheckBadgeIcon,
+	XCircleIcon,
+} from '@heroicons/react/16/solid';
 import axiosClient from '../axios';
 import Notif from '../components/Notif';
 import Card from '../components/Card';
@@ -16,10 +22,11 @@ const Tasks = () => {
 	const [errors, setErrors] = useState(null);
 	const [notifMessage, setNotifMessage] = useState('');
 	const [tasks, setTasks] = useState([]);
+	const [hoverIndex, setHoverIndex] = useState(null);
 
 	const [taskId, setTaskId] = useState(false);
 
-	const { userId } = useStateContext();
+	// const { userId } = useStateContext();
 
 	const titleRef = createRef();
 	const bodyRef = createRef();
@@ -80,6 +87,28 @@ const Tasks = () => {
 				});
 		}
 	}
+	function updateTaskStatus(id, index, status) {
+		console.log(id);
+		console.log(index);
+		const payload = {
+			status: !status,
+		};
+		axiosClient
+			.patch(`/api/tasks/${id}`, payload)
+			.then(({ data }) => {
+				setNotifMessage(data.message);
+				setShowNotif(true);
+				let currentTask = [...tasks];
+				currentTask[index].status = !status;
+				setTask(currentTask);
+			})
+			.catch((err) => {
+				const response = err.response;
+				if (response && response.status === 422) {
+					setErrors(response.data.errors);
+				}
+			});
+	}
 
 	useEffect(() => {
 		getTasks();
@@ -93,7 +122,7 @@ const Tasks = () => {
 		// return () => {
 		// 	channel.stopListening('NewNotification');
 		// };
-	}, []);
+	}, [tasks]);
 
 	return (
 		<div className='m-5'>
@@ -112,7 +141,7 @@ const Tasks = () => {
 
 			<div className='flex flex-wrap gap-6 p-10 justify-center md:justify-start items-center md:items-start'>
 				{tasks.length > 0
-					? tasks.map((task) => {
+					? tasks.map((task, index) => {
 							return (
 								<Card
 									key={task.id}
@@ -120,8 +149,21 @@ const Tasks = () => {
 									body={task.body}
 									created_at={task.created_at}
 								>
+									<button
+										onClick={() =>
+											updateTaskStatus(task.id, index, task.status)
+										}
+										onMouseEnter={() => setHoverIndex(index)}
+										onMouseLeave={() => setHoverIndex(null)}
+									>
+										{task.status || hoverIndex === index ? (
+											<CheckBadgeIcon className='text-green-500 hover:text-green-400 mr-2 size-6' />
+										) : (
+											<XCircleIcon className='text-red-500 hover:text-red-400 mr-2 size-6' />
+										)}
+									</button>
 									<button onClick={() => navigate(`/task/${task.id}`)}>
-										<EyeIcon className='text-orange-500 mx-5 size-6' />
+										<EyeIcon className='text-orange-500 hover:text-orange-400 mr-2 size-6' />
 									</button>
 									<button
 										onClick={() => {
@@ -129,7 +171,7 @@ const Tasks = () => {
 											setTaskId(task.id);
 										}}
 									>
-										<TrashIcon className='text-red-700 size-6' />
+										<TrashIcon className='text-red-700 hover:text-red-500 size-6' />
 									</button>
 								</Card>
 							);
