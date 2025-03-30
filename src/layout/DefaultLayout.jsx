@@ -22,6 +22,7 @@ import {
 } from '@heroicons/react/24/outline';
 import axiosClient from '../axios.js';
 import { ArrowLeftIcon } from '@heroicons/react/16/solid';
+import { resetEcho } from '../echo.js';
 
 const navigation = [
 	{ name: 'Dashboard', href: '/dashboard' },
@@ -33,7 +34,7 @@ function classNames(...classes) {
 }
 
 const DefaultLayout = () => {
-	const { user, token, setToken, setUser } = useStateContext();
+	const { user, token, setToken, setUser, _setUserId } = useStateContext();
 	const navigate = useNavigate();
 
 	if (!token) {
@@ -52,8 +53,11 @@ const DefaultLayout = () => {
 			.then(({ data }) => {
 				localStorage.removeItem('token');
 				localStorage.removeItem('user');
+				localStorage.removeItem('userId');
 				setToken(null);
 				setUser(null);
+				_setUserId(null);
+				resetEcho();
 			})
 			.catch((err) => {
 				const response = err.response;
@@ -197,7 +201,9 @@ const DefaultLayout = () => {
 						</h1>
 					</div>
 				</header>
-				<Outlet />
+				<main>
+					<Outlet />
+				</main>
 			</div>
 		</>
 	);

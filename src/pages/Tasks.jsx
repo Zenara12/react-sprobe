@@ -5,6 +5,8 @@ import axiosClient from '../axios';
 import Notif from '../components/Notif';
 import Card from '../components/Card';
 import { useNavigate } from 'react-router-dom';
+import { echo } from '../echo';
+import { useStateContext } from '../context/ContentProvider';
 
 const Tasks = () => {
 	//states
@@ -16,6 +18,8 @@ const Tasks = () => {
 	const [tasks, setTasks] = useState([]);
 
 	const [taskId, setTaskId] = useState(false);
+
+	const { userId } = useStateContext();
 
 	const titleRef = createRef();
 	const bodyRef = createRef();
@@ -79,6 +83,16 @@ const Tasks = () => {
 
 	useEffect(() => {
 		getTasks();
+		// const channel = echo().private(`notifications.${userId}`);
+		// channel.listen('NewNotification', (notification) => {
+		// 	console.log('New notification received:', notification);
+		// 	// Handle notification...
+		// });
+
+		// // Clean up when component unmounts
+		// return () => {
+		// 	channel.stopListening('NewNotification');
+		// };
 	}, []);
 
 	return (
@@ -100,7 +114,12 @@ const Tasks = () => {
 				{tasks.length > 0
 					? tasks.map((task) => {
 							return (
-								<Card key={task.id} item={task}>
+								<Card
+									key={task.id}
+									title={task.title}
+									body={task.body}
+									created_at={task.created_at}
+								>
 									<button onClick={() => navigate(`/task/${task.id}`)}>
 										<EyeIcon className='text-orange-500 mx-5 size-6' />
 									</button>
